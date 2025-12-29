@@ -1,0 +1,69 @@
+services:
+  # InkSoul Backend API
+  - type: web
+    name: inksoul-backend
+    runtime: node
+    env: node
+    region: oregon # Change to your preferred region (oregon, frankfurt, singapore, etc.)
+    plan: free # Change to starter or other paid plans as needed
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    
+    # Auto-deploy settings
+    autoDeploy: true
+    
+    # Environment variables
+    # IMPORTANT: Set these in the Render dashboard under Environment tab
+    envVars:
+      - key: NODE_ENV
+        value: production
+      
+      - key: PORT
+        value: 5000
+      
+      - key: MONGODB_URI
+        sync: false # Set this manually in Render dashboard
+        # Example: mongodb+srv://username:password@cluster.mongodb.net/inksoul?retryWrites=true&w=majority
+      
+      - key: JWT_SECRET
+        generateValue: true # Render will auto-generate a secure random value
+      
+      - key: CLIENT_URL
+        sync: false # Set to your frontend URL (e.g., https://your-frontend.onrender.com)
+      
+      - key: STRIPE_SECRET_KEY
+        sync: false # Set this manually in Render dashboard
+      
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false # Set this manually in Render dashboard
+      
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false # Set this manually in Render dashboard
+      
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+      
+      - key: EMAIL_PORT
+        value: 587
+      
+      - key: EMAIL_USER
+        sync: false # Set this manually if using email features
+      
+      - key: EMAIL_PASS
+        sync: false # Set this manually if using email features
+      
+      - key: MAX_FILE_SIZE
+        value: 5242880
+      
+      - key: UPLOAD_PATH
+        value: ./uploads
+      
+      - key: ADMIN_EMAIL
+        sync: false # Set this manually in Render dashboard
+      
+      - key: ADMIN_PASSWORD
+        sync: false # Set this manually in Render dashboard
+
+# Note: You can also deploy this using the Render Dashboard instead of this YAML file
+# This file is provided for Infrastructure as Code (IaC) approach
