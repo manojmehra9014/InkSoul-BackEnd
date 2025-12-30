@@ -108,7 +108,7 @@ app.get('/api/health', async (req, res) => {
     healthCheck.database.status = 'error';
     healthCheck.database.connected = false;
     healthCheck.database.error = error.message;
-    
+
     res.status(503).json(healthCheck);
   }
 });
@@ -156,10 +156,10 @@ app.get('/api/health/detailed', async (req, res) => {
   try {
     const dbState = mongoose.connection.readyState;
     const connection = mongoose.connection;
-    
+
     detailedHealth.database.host = connection.host || 'unknown';
     detailedHealth.database.name = connection.name || 'unknown';
-    
+
     switch (dbState) {
       case 0:
         detailedHealth.database.status = 'disconnected';
@@ -188,7 +188,7 @@ app.get('/api/health/detailed', async (req, res) => {
     detailedHealth.status = 'ERROR';
     detailedHealth.database.status = 'error';
     detailedHealth.database.error = error.message;
-    
+
     res.status(503).json(detailedHealth);
   }
 });
